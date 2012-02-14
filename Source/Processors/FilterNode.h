@@ -44,6 +44,12 @@ public:
 	
 private:
 	double lowCut, highCut;
+
+  float *w1;
+  float a1_1, a1_2, b1_0, b1_1, b1_2;
+  float *w2;
+  float a2_1, a2_2, b2_0, b2_1, b2_2;
+
 	Dsp::Filter* filter;
 
 	JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (FilterNode);
