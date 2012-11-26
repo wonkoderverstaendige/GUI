@@ -29,8 +29,12 @@ NetworkThread::NetworkThread(SourceNode* sn) : DataThread(sn)
 // 	char port[] = "5227";
 
 // 	my_netcomdat = my_netcom.initUdpRx(host, port);
-		
-// 	dataBuffer = new DataBuffer(8, 4096);
+	
+	// I'm just going to start by pulling the first 8 channels and discarding the rest.
+	// Does the size depend on the number of channels somehow?
+ 	dataBuffer = new DataBuffer(8, 4096);
+ 	
+ 	deviceFound = false; //initialization
 
 // 	startThread();
 
@@ -48,6 +52,31 @@ NetworkThread::~NetworkThread() {
 
 	// delete dataBuffer;
 	// dataBuffer = 0;
+}
+
+int NetworkThread::getNumChannels()
+{
+    return 8;
+}
+
+int NetworkThread::getNumEventChannels()
+{
+    return 1;
+}
+
+float NetworkThread::getSampleRate()
+{
+    return 31250.0;
+}
+
+float NetworkThread::getBitVolts()
+{
+    return 0.1907; //this needs to be changed!
+}
+
+bool NetworkThread::foundInputSource()
+{
+	return deviceFound;
 }
 
 
