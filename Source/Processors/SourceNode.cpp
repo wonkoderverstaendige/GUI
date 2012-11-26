@@ -34,6 +34,7 @@ SourceNode::SourceNode(const String& name_)
 
 	std::cout << "creating source node." << std::endl;
 
+	//gets the name of the source from the generic processor, then starts a new data thread
 	if (getName().equalsIgnoreCase("Intan Demo Board")) {
 		dataThread = new IntanThread(this);
 	} else if (getName().equalsIgnoreCase("Custom FPGA")) {
@@ -41,21 +42,25 @@ SourceNode::SourceNode(const String& name_)
 	} else if (getName().equalsIgnoreCase("File Reader")) {
 		dataThread = new FileReaderThread(this);
 	}
-
+	
+	// if the data type was recognized and a thread created above
 	if (dataThread != 0)
 	{
+		// check if the data thread found the correct input source
 		if (!dataThread->foundInputSource())
 		{
 			enabledState(false);
 		}
-
+		
+		// get the number of event channels - what are event channels?
 		numEventChannels = dataThread->getNumEventChannels();
+		// make an integer array (length = number of event channels) and set all zero
 		eventChannelState = new int[numEventChannels];
 		for (int i = 0; i < numEventChannels; i++)
 		{
 			eventChannelState[i] = 0;
 		}
-
+	// if you couldn't find a default type of data thread to use, set some basic things
 	} else {
 		enabledState(false);
 		numEventChannels = 0;
@@ -70,17 +75,21 @@ SourceNode::SourceNode(const String& name_)
 
 }
 
+//code for closing the source??
 SourceNode::~SourceNode() 
 {
 }
 
+// dataThread was defined in SourceNode
 DataThread* SourceNode::getThread()
 {
     return dataThread;
 }
 
+//
 void SourceNode::updateSettings()
 {
+	// get the buffer address (to the data stream?)
 	if (inputBuffer == 0 && dataThread != 0)
 	{
 
@@ -88,6 +97,7 @@ void SourceNode::updateSettings()
 		std::cout << "Input buffer address is " << inputBuffer << std::endl;
 	}
 
+	// make a new channel, type event, for every .. event channel.
 	for (int i = 0; i < dataThread->getNumEventChannels(); i++)
 	{
 		Channel* ch = new Channel(this, i);
@@ -98,6 +108,7 @@ void SourceNode::updateSettings()
 
 }
 
+// I guess this is a method of exchanging TTL pulses?  
 void SourceNode::actionListenerCallback(const String& msg)
 {
     
@@ -160,7 +171,7 @@ void SourceNode::enabledState(bool t)
 	{
 		isEnabled = false;
 	} else {
-		isEnabled = t;
+		isEnabled = t; //should this be true?
 	}
 
 }
@@ -170,6 +181,7 @@ void SourceNode::setParameter (int parameterIndex, float newValue)
 	//std::cout << "Got parameter change notification";
 }
 
+//is this for editing parameters in the GUI?
 AudioProcessorEditor* SourceNode::createEditor()
 {
 	editor = new SourceNodeEditor(this);
