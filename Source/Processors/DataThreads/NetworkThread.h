@@ -54,11 +54,13 @@ public:
 	NetworkThread(SourceNode* sn);
 	~NetworkThread();
 
-	bool foundInputSource() {return true;}
+	bool foundInputSource()
 	bool startAcquisition() {return true;}
 	bool stopAcquisition() {return true;}
-	int getNumChannels() {return 16;}
-	float getSampleRate() {return 40000.0;}
+	int getNumChannels()
+	int getNumEventChannels()
+	float getBitVolts()
+	float getSampleRate()
 
 private:
 
