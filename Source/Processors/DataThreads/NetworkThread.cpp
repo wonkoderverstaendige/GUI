@@ -25,10 +25,14 @@
 
 NetworkThread::NetworkThread(SourceNode* sn) : DataThread(sn)
  {
- 	char host[] = "127.0.0.1";
- 	int port[] = 61557;
 
-// 	my_netcomdat = my_netcom.initUdpRx(host, port);
+	struct sockaddr_in dataddr;
+	
+	memset(&servaddr, 0, sizeof(servaddr));
+	//still using IPv4, change this if you want to switch!
+	servaddr.sin_family = AF_INET;
+	servaddr.sin_addr.s_addr=inet_addr("127.0.0.1");
+	servaddr.sin_port=htons(61557);	
 	
 	// I'm just going to start by pulling the first 8 channels and discarding the rest.
 	// Does the size depend on the number of channels somehow?
@@ -36,22 +40,18 @@ NetworkThread::NetworkThread(SourceNode* sn) : DataThread(sn)
  	
  	deviceFound = false; //initialization
 
-// 	startThread();
+ 	startThread();
 
-// 	std::cout << "Network interface created." << std::endl;
+	std::cout << "Network interface created." << std::endl;
 }
 
 NetworkThread::~NetworkThread() {
-	// stopThread(500);
-	// close(my_netcomdat.sockfd);
-	
-	// // need to close socket in order to reopen
-	// close(my_netcomdat.sockfd);
+	stopThread(500);
 
-	// std::cout << "Network interface destroyed." << std::endl;
+	std::cout << "Network interface destroyed." << std::endl;
 
-	// delete dataBuffer;
-	// dataBuffer = 0;
+	delete dataBuffer;
+	dataBuffer = 0;
 }
 
 int NetworkThread::getNumChannels()
@@ -79,17 +79,27 @@ bool NetworkThread::foundInputSource()
 	return deviceFound;
 }
 
+bool NetworkThread::startAcquisition()
+{
+	sockfd = socket(AF_INET,SOCK_DGRAM,0);
+	if (sockfd < 0)
+	{
+		deviceFound = false;
+		return false;
+	}
+	deviceFound = true;
+	return true;
+}
 
-bool NetworkThread::updateBuffer(){
-		
-	 // NetCom::rxWave (my_netcomdat, &lfp);
+bool NetworkThread::stopAcquisition()
+{
+	close(sockfd);
+	deviceFound = false;
+	return true;
+}
 
-	 // for (int s = 0; s < lfp.n_samps_per_chan; s++) {
-	 // 	for (int c = 0; c < lfp.n_chans; c++) {
-	 // 		thisSample[c] = float(lfp.data[s*lfp.n_chans + c])/500.0f;
-	 // 	}
-	 // 	dataBuffer->addToBuffer(thisSample,1);
-	 // }
 
-	 // return true;
+bool NetworkThread::updateBuffer()
+{
+	 return true;
 }
