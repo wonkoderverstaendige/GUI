@@ -25,8 +25,8 @@
 
 NetworkThread::NetworkThread(SourceNode* sn) : DataThread(sn)
  {
-// 	char host[] = "10.121.43.47";
-// 	char port[] = "5227";
+ 	char host[] = "127.0.0.1";
+ 	int port[] = 61557;
 
 // 	my_netcomdat = my_netcom.initUdpRx(host, port);
 	
