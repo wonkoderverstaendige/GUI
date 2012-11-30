@@ -28,8 +28,17 @@
 
 #ifdef WIN32
 #include <Windows.h>
+#include <WinSock2.h>
+#include <Ws2tcpip.h>
+#pragma comment(lib, "ws2_32.lib")
 #endif
 #include "../../../JuceLibraryCode/JuceHeader.h"
+#include <sys/socket.h> //for linux
+#include <netinet/in.h> //for linux
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+
 
 // #include "../../Network/unp.h"
 // #include "../../Network/netcom.h"
