@@ -193,6 +193,10 @@
               file="Source/Audio/AudioComponent.h"/>
       </GROUP>
       <GROUP id="yQmqZWk" name="Processors">
+        <FILE id="VlFyp30" name="RippleDetector.cpp" compile="1" resource="0"
+              file="Source/Processors/RippleDetector.cpp"/>
+        <FILE id="lIbUpL" name="RippleDetector.h" compile="0" resource="0"
+              file="Source/Processors/RippleDetector.h"/>
         <FILE id="I3M3irE" name="ReferenceNode.cpp" compile="1" resource="0"
               file="Source/Processors/ReferenceNode.cpp"/>
         <FILE id="mkZIyij" name="ReferenceNode.h" compile="0" resource="0"

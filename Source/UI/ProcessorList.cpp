@@ -56,6 +56,7 @@ ProcessorList::ProcessorList() : isDragging(false),
 	filters->addSubItem(new ProcessorListItem("Spike Detector"));
 	filters->addSubItem(new ProcessorListItem("Resampler"));
 	filters->addSubItem(new ProcessorListItem("Phase Detector"));
+	filters->addSubItem(new ProcessorListItem("Ripple Detector"));
 	filters->addSubItem(new ProcessorListItem("Digital Reference"));
 
 	ProcessorListItem* sinks = new ProcessorListItem("Sinks");

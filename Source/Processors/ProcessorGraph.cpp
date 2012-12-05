@@ -42,6 +42,7 @@
 #include "PhaseDetector.h"
 #include "WiFiOutput.h"
 #include "ArduinoOutput.h"
+#include "RippleDetector.h"
 #include "FPGAOutput.h"
 #include "Utilities/RecordControl.h"
 #include "Utilities/Splitter.h"
@@ -433,6 +434,10 @@ GenericProcessor* ProcessorGraph::createProcessorFromDescription(String& descrip
 		else if (subProcessorType.equalsIgnoreCase("Digital Reference")) {
 			std::cout << "Creating a new digital reference." << std::endl;
 			processor = new ReferenceNode();
+		}
+		else if (subProcessorType.equalsIgnoreCase("Ripple Detector")) {
+			std::cout << "Creating a new ripple detector." << std::endl;
+			processor = new RippleDetector();
 		}
 
 		//sendActionMessage("New filter node created.");

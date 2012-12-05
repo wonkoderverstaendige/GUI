@@ -37,6 +37,7 @@
 		8E138283FC265B58D252AAC3 = { isa = PBXBuildFile; fileRef = F4A53064BA75472765338C1D; };
 		EE1DC0B09AE0727BC7A5A99C = { isa = PBXBuildFile; fileRef = 0D20C3399D0492771F7A808A; };
 		4ACF816CB5CDB285D8005AB8 = { isa = PBXBuildFile; fileRef = F74662D3D82975EDB5AD42E0; };
+		04046E9FD790663A4CDDF864 = { isa = PBXBuildFile; fileRef = BE2403D67916B3F9F00BD060; };
 		125C853C87498E12942A898C = { isa = PBXBuildFile; fileRef = 3E794D3BDE12790A2373836A; };
 		AEE153DB070AD3023780DAED = { isa = PBXBuildFile; fileRef = EF2AF97E68B2C2428A835836; };
 		448F8ACAAE9A5354E4E013E8 = { isa = PBXBuildFile; fileRef = 2AFAED9379D050629F34C033; };
@@ -235,6 +236,8 @@
 		E27B5891A52FDAB2B00901A0 = { isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Utilities.h; path = ../../Source/Dsp/Utilities.h; sourceTree = SOURCE_ROOT; };
 		F74662D3D82975EDB5AD42E0 = { isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = AudioComponent.cpp; path = ../../Source/Audio/AudioComponent.cpp; sourceTree = SOURCE_ROOT; };
 		FA55B9FDE138CCB1F16BA905 = { isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AudioComponent.h; path = ../../Source/Audio/AudioComponent.h; sourceTree = SOURCE_ROOT; };
+		BE2403D67916B3F9F00BD060 = { isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = RippleDetector.cpp; path = ../../Source/Processors/RippleDetector.cpp; sourceTree = SOURCE_ROOT; };
+		1495B98454A6AEF69DB4B61D = { isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = RippleDetector.h; path = ../../Source/Processors/RippleDetector.h; sourceTree = SOURCE_ROOT; };
 		3E794D3BDE12790A2373836A = { isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = ReferenceNode.cpp; path = ../../Source/Processors/ReferenceNode.cpp; sourceTree = SOURCE_ROOT; };
 		092C479F4C92AF2FEBE5A11A = { isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ReferenceNode.h; path = ../../Source/Processors/ReferenceNode.h; sourceTree = SOURCE_ROOT; };
 		EF2AF97E68B2C2428A835836 = { isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = PhaseDetector.cpp; path = ../../Source/Processors/PhaseDetector.cpp; sourceTree = SOURCE_ROOT; };
@@ -612,6 +615,8 @@
 				72123888A7DD78159AA032AF,
 				2164BFCDF57A5AA752CAA3A2 ); name = DataThreads; sourceTree = "<group>"; };
 		33A88A7C3FF426F051834D6A = { isa = PBXGroup; children = (
+				BE2403D67916B3F9F00BD060,
+				1495B98454A6AEF69DB4B61D,
 				3E794D3BDE12790A2373836A,
 				092C479F4C92AF2FEBE5A11A,
 				EF2AF97E68B2C2428A835836,
@@ -816,6 +821,7 @@
 				8E138283FC265B58D252AAC3,
 				EE1DC0B09AE0727BC7A5A99C,
 				4ACF816CB5CDB285D8005AB8,
+				04046E9FD790663A4CDDF864,
 				125C853C87498E12942A898C,
 				AEE153DB070AD3023780DAED,
 				448F8ACAAE9A5354E4E013E8,

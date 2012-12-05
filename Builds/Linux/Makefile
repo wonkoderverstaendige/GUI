@@ -63,6 +63,7 @@ OBJECTS := \
   $(OBJDIR)/RootFinder_239a995f.o \
   $(OBJDIR)/State_22979684.o \
   $(OBJDIR)/AudioComponent_521bd9c9.o \
+  $(OBJDIR)/RippleDetector_93430f45.o \
   $(OBJDIR)/ReferenceNode_519d3b68.o \
   $(OBJDIR)/PhaseDetector_7193f7dc.o \
   $(OBJDIR)/AudioResamplingNode_3dbffa2d.o \
@@ -259,6 +260,11 @@ $(OBJDIR)/State_22979684.o: ../../Source/Dsp/State.cpp
 $(OBJDIR)/AudioComponent_521bd9c9.o: ../../Source/Audio/AudioComponent.cpp
 	-@mkdir -p $(OBJDIR)
 	@echo "Compiling AudioComponent.cpp"
+	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+
+$(OBJDIR)/RippleDetector_93430f45.o: ../../Source/Processors/RippleDetector.cpp
+	-@mkdir -p $(OBJDIR)
+	@echo "Compiling RippleDetector.cpp"
 	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 
 $(OBJDIR)/ReferenceNode_519d3b68.o: ../../Source/Processors/ReferenceNode.cpp
