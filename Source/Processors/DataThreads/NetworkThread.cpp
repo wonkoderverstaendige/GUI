@@ -26,9 +26,6 @@
 NetworkThread::NetworkThread(SourceNode* sn) : DataThread(sn)
  {
 
-	struct sockaddr_in dataddr;
-	int sockfd;
-	
 	memset(&dataddr, 0, sizeof(dataddr));
 	//still using IPv4, change this if you want to switch!
 	dataddr.sin_family = AF_INET;
