@@ -28,11 +28,11 @@ NetworkThread::NetworkThread(SourceNode* sn) : DataThread(sn)
 
 	struct sockaddr_in dataddr;
 	
-	memset(&servaddr, 0, sizeof(servaddr));
+	memset(&dataddr, 0, sizeof(dataddr));
 	//still using IPv4, change this if you want to switch!
-	servaddr.sin_family = AF_INET;
-	servaddr.sin_addr.s_addr=inet_addr("127.0.0.1");
-	servaddr.sin_port=htons(61557);	
+	dataddr.sin_family = AF_INET;
+	dataddr.sin_addr.s_addr=inet_addr("127.0.0.1");
+	dataddr.sin_port=htons(61557);	
 	
 	// I'm just going to start by pulling the first 8 channels and discarding the rest.
 	// Does the size depend on the number of channels somehow?
@@ -101,5 +101,26 @@ bool NetworkThread::stopAcquisition()
 
 bool NetworkThread::updateBuffer()
 {
+	char * newData;
+	int receiveData;
+	receiveData = recvfrom(sockfd, newData, 80, 0, (struct sockaddr *) & dataddr, sizeof(dataddr));
+	if (receiveData < 0)
+	{
+		return false;
+	}
+	
+	if (data[4] == 0)
+	{
+		for (int i = 0, i++, i<8)
+		{
+			thisSample[i] = float(data[i + 17])*15/2^16;
+		}
+		
+		timestamp = uint64(data[12]);
+		eventCode = 0
+		
+		dataBuffer->addToBuffer(thisSample, &timestamp, &eventCode, 1);
+	}
+	
 	 return true;
 }
