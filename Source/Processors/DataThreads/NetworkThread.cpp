@@ -111,11 +111,11 @@ bool NetworkThread::updateBuffer()
 	{
 		for (int i = 0; i++; i<8)
 		{
-			thisSample[i] = float(newData[i + 17])*15/2^16;
+			thisSample[i] = float(newData[i + 17])*15/pow(2.0,16);
 		}
 		
 		timestamp = uint64(newData[12]);
-		eventCode = 0
+		eventCode = 0;
 		
 		dataBuffer->addToBuffer(thisSample, &timestamp, &eventCode, 1);
 	}
