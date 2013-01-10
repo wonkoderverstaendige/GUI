@@ -101,7 +101,7 @@ bool NetworkThread::updateBuffer()
 {
 	char * newData;
 	int receiveData;
-	receiveData = recvfrom(sockfd, newData, 80, 0, (struct sockaddr *) & dataddr, sizeof(dataddr));
+	receiveData = recvfrom(sockfd, newData, 80, 0, (struct sockaddr *) & dataddr, sizeof(struct sockaddr_in));
 	if (receiveData < 0)
 	{
 		return false;
