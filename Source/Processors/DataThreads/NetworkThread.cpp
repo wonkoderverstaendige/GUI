@@ -35,13 +35,8 @@ NetworkThread::NetworkThread(SourceNode* sn) : DataThread(sn)
 	// I'm just going to start by pulling the first 8 channels and discarding the rest.
 	// Does the size depend on the number of channels somehow?
  	dataBuffer = new DataBuffer(8, 4096);
-
-	sockfd = socket(AF_INET,SOCK_DGRAM,0);
-	if (sockfd < 0)
-	{
-		deviceFound = false;
-	}
-	deviceFound = true;
+ 	
+ 	deviceFound = false; //initialization
 
  	startThread();
 
@@ -84,13 +79,13 @@ bool NetworkThread::foundInputSource()
 
 bool NetworkThread::startAcquisition()
 {
-	/*
+	sockfd = socket(AF_INET,SOCK_DGRAM,0);
 	if (sockfd < 0)
 	{
 		deviceFound = false;
 		return false;
 	}
-	deviceFound = true;*/
+	deviceFound = true;
 	return true;
 }
 
