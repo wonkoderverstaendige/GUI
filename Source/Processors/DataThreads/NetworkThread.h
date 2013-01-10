@@ -25,6 +25,7 @@
 #define __NETWORKTHREAD_H_DD31EB15__
 
 #include <stdio.h>
+#include <math.h>
 
 #ifdef WIN32
 #include <Windows.h>
@@ -36,7 +37,6 @@
 #include <sys/socket.h> //for linux
 #include <netinet/in.h> //for linux
 #include <arpa/inet.h> //for linux
-#include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
 
@@ -80,6 +80,9 @@ private:
 	// NetComDat my_netcomdat;
 
 	// lfp_bank_net_t lfp;
+	
+	struct sockaddr_in dataddr;
+	int sockfd;
 
 	DataBuffer* dataBuffer;
 
