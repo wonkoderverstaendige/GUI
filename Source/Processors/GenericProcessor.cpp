@@ -30,8 +30,7 @@ GenericProcessor::GenericProcessor(const String& name_) :
 	isEnabled(true), 
 	saveOrder(-1), loadOrder(-1),
 	nextAvailableChannel(0), currentChannel(-1),
-	wasConnected(false), nullParam("VOID", false, -1),
-	audioAndRecordNodeStartChannel(0)
+	wasConnected(false)
 {
 }
 
@@ -58,6 +57,7 @@ Parameter& GenericProcessor::getParameterByName(String name_)
 			return p;//parameters.getReference(i);
 	} 
 
+	Parameter nullParam = Parameter("VOID", false, -1);
 
 	return nullParam;
 
@@ -97,9 +97,7 @@ const String GenericProcessor::getParameterText (int parameterIndex)
 
 void GenericProcessor::prepareToPlay (double sampleRate_, int estimatedSamplesPerBlock)
 {
-	// use the enable() function instead
-	// prepareToPlay() is called by Juce as soon as a processor is created
-	// enable() is only called by the ProcessorGraph just before the start of acquisition
+
 }
 
 void GenericProcessor::releaseResources() 
@@ -113,7 +111,7 @@ int GenericProcessor::getNextChannel(bool increment)
 {
 	int chan = nextAvailableChannel;
 
-	std::cout << "Next channel: " << chan << ", num inputs: " << getNumInputs() << std::endl;
+	//std::cout << "Next channel: " << chan << ", num inputs: " << getNumInputs() << std::endl;
  
 	if (increment)
 		nextAvailableChannel++;
@@ -285,6 +283,7 @@ void GenericProcessor::clearSettings()
 	settings.sampleRate = getDefaultSampleRate();
 
 	channels.clear();
+	eventChannels.clear();
 
 }
 
@@ -306,6 +305,7 @@ void GenericProcessor::update()
 		{
 			Channel* sourceChan = sourceNode->channels[i];
 			Channel* ch = new Channel(*sourceChan);
+			ch->setProcessor(this);
 			channels.add(ch);
 		}
 
@@ -418,7 +418,7 @@ int GenericProcessor::checkForEvents(MidiBuffer& midiMessages)
 			
 			uint8* dataptr = message.getRawData();
 
-			handleEvent(*dataptr, message);
+			handleEvent(*dataptr, message, samplePosition);
 
 		}
 
@@ -447,6 +447,10 @@ void GenericProcessor::addEvent(MidiBuffer& eventBuffer,
     eventBuffer.addEvent(data, 		// spike data
                           sizeof(data), // total bytes
                           sampleNum);     // sample index
+
+    //if (type == TTL)
+    //	std::cout << "Adding event for channel " << (int) eventChannel << " with ID " << (int) eventId << std::endl;
+
 	delete data;
 }
 

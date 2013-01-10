@@ -36,7 +36,7 @@ MainWindow::MainWindow()
                   false);   // useBottomCornerRisizer -- doesn't work very well
    // centreWithSize(500,400);
 
-    // Constraining th window's size doesn't seem to work:
+    // Constraining the window's size doesn't seem to work:
     //
 
     // Create ProcessorGraph and AudioComponent, and connect them.
@@ -152,7 +152,7 @@ void MainWindow::loadWindowBounds()
     XmlDocument doc (file);
     XmlElement* xml = doc.getDocumentElement();
 
-    if (xml == 0 || ! xml->hasTagName (T("MAINWINDOW")))
+    if (xml == 0 || ! xml->hasTagName ("MAINWINDOW"))
     {
         
         std::cout << "File not found." << std::endl;
@@ -161,7 +161,7 @@ void MainWindow::loadWindowBounds()
 
     } else {
 
-        String description;// = T(" ");
+        String description;
 
         forEachXmlChildElement (*xml, e)
         {

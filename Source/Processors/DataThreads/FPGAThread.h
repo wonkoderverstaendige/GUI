@@ -35,15 +35,15 @@
 #include "okFrontPanelDLL.h"
 #include "DataThread.h"
 
-/**
+class SourceNode;
 
-  Communicates with the custom acquisition board via an Opal Kelly FPGA.
+/**
+ 
+  Communicates with the Open Ephys acquisition board via an Opal Kelly FPGA.
 
   @see DataThread, SourceNode
 
 */
-
-class SourceNode;
 
 class FPGAThread : public DataThread
 

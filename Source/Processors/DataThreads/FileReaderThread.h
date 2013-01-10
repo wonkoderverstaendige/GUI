@@ -33,18 +33,17 @@
 #include <time.h>
 #include "DataThread.h"
 
+class SourceNode;
+
 /**
 
-  --UNDER CONSTRUCTION--
+  Fills a buffer with data from a file.
 
-  Similar to FileReader, but works within its own thread.
+  Has issues with setting the correct sampling rate.
 
   @see DataThread, FileReader
 
 */
-
-
-class SourceNode;
 
 class FileReaderThread : public DataThread
 
@@ -53,11 +52,11 @@ public:
 	FileReaderThread(SourceNode* sn);
 	~FileReaderThread();
 
-	bool foundInputSource();// {return true;}
+	bool foundInputSource();
 	bool startAcquisition();
 	bool stopAcquisition();
-	int getNumChannels();// {return 16;}
-	float getSampleRate();// {return 40000.0;}
+	int getNumChannels();
+	float getSampleRate();
     float getBitVolts();
 	
 private:
@@ -69,8 +68,6 @@ private:
     int playHead;
 
     FILE* input;
-
-	//FileInputStream* input;
 
 	float thisSample[16];
     int16 readBuffer[1600];

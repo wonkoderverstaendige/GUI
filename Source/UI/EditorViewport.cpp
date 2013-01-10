@@ -68,7 +68,6 @@ EditorViewport::EditorViewport()
 
 EditorViewport::~EditorViewport()
 {
-   // deleteAndZero(signalChainManager);
     deleteAllChildren();
 }
 
@@ -261,13 +260,17 @@ void EditorViewport::clearSignalChain()
     repaint();
 }
 
-void EditorViewport::makeEditorVisible(GenericEditor* editor, bool highlight)
+void EditorViewport::makeEditorVisible(GenericEditor* editor, bool highlight, bool updateSettings)
 {
     
     if (editor == 0)
         return;
 
-    signalChainManager->updateVisibleEditors(editor, 0, 0, ACTIVATE);
+    if (!updateSettings)
+        signalChainManager->updateVisibleEditors(editor, 0, 0, ACTIVATE);
+    else
+        signalChainManager->updateVisibleEditors(editor, 0, 0, UPDATE);
+
     refreshEditors();
 
     for (int i = 0; i < editorArray.size(); i++)
@@ -280,26 +283,8 @@ void EditorViewport::makeEditorVisible(GenericEditor* editor, bool highlight)
 
 }
 
-
-void EditorViewport::makeEditorVisibleAndUpdateSettings(GenericEditor* editor)
+void EditorViewport::deleteNode (GenericEditor* editor) 
 {
-    
-    if (editor == 0)
-        return;
-
-    signalChainManager->updateVisibleEditors(editor, 0, 0, UPDATE);
-    refreshEditors();
-
-    for (int i = 0; i < editorArray.size(); i++)
-    {
-        editorArray[i]->deselect();
-    }
-
-    editor->highlight();
-
-}
-
-void EditorViewport::deleteNode (GenericEditor* editor) {
 
     if (canEdit) {
         indexOfMovingComponent = editorArray.indexOf(editor);
@@ -311,16 +296,6 @@ void EditorViewport::deleteNode (GenericEditor* editor) {
 
         getProcessorGraph()->removeProcessor((GenericProcessor*) editor->getProcessor());
     }
-
-    // int64 t1 = Time::currentTimeMillis();
-    // int64 t2 = t1;
-
-    // // pause for 50 ms so multiple editors are not accidentally deleted
-    // while (t2 < t1+50)
-    // {
-    //     t2 = Time::currentTimeMillis();
-    // }
-
 }
 
 
@@ -522,7 +497,7 @@ bool EditorViewport::keyPressed (const KeyPress &key) {
     
    //std::cout << "Editor viewport received " << key.getKeyCode() << std::endl;
 
-   if (canEdit) 
+  if (canEdit && editorArray.size() > 0) 
    {
 
         ModifierKeys mk = key.getModifiers();
@@ -1005,8 +980,8 @@ XmlElement* EditorViewport::createNodeXml (GenericEditor* editor,
 
     std::cout << name << std::endl;
 
-    e->setAttribute (T("name"), name);
-    e->setAttribute (T("insertionPoint"), insertionPt);
+    e->setAttribute ("name", name);
+    e->setAttribute ("insertionPoint", insertionPt);
 
    // source->stateSaved = true;
   
@@ -1176,7 +1151,7 @@ const String EditorViewport::loadState()
     XmlDocument doc (currentFile);
     XmlElement* xml = doc.getDocumentElement();
 
-    if (xml == 0 || ! xml->hasTagName (T("PROCESSORGRAPH")))
+    if (xml == 0 || ! xml->hasTagName ("PROCESSORGRAPH"))
     {
         std::cout << "File not found." << std::endl;
         delete xml;
@@ -1185,7 +1160,7 @@ const String EditorViewport::loadState()
 
     clearSignalChain();
 
-    String description;// = T(" ");
+    String description;// = " ";
     int loadOrder = 0;
 
     forEachXmlChildElement (*xml, signalChain)

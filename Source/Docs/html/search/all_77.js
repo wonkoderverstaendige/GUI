@@ -9,6 +9,7 @@ var searchData=
   ['waveaxes',['WaveAxes',['../classWaveAxes.html',1,'WaveAxes'],['../classWaveAxes.html#a591620ff5d68329deaf19f8d58adbb49',1,'WaveAxes::WaveAxes()'],['../classWaveAxes.html#a3e1b38a080b666c68e6b9f038ac5ed3d',1,'WaveAxes::WaveAxes(int x, int y, double w, double h, int t)']]],
   ['waveaxes_2eh',['WaveAxes.h',['../WaveAxes_8h.html',1,'']]],
   ['waveformselector',['WaveformSelector',['../classWaveformSelector.html',1,'WaveformSelector'],['../classWaveformSelector.html#a8dd23f58ec9ec1e6d3030f4c28d8f6e4',1,'WaveformSelector::WaveformSelector()']]],
+  ['white',['white',['../classOpenGLCanvas.html#a8a39cd54c4b34f3962c31dc7ec1659c2a04a3f365ffb0e722db605a8c3fd9b72e',1,'OpenGLCanvas']]],
   ['width',['width',['../classBaseUIElement.html#a913b0634330b02a5aa2d0dad22982cc4',1,'BaseUIElement']]],
   ['wifioutput',['WiFiOutput',['../classWiFiOutput.html',1,'WiFiOutput'],['../classWiFiOutput.html#a6fd169ac92ab5d84ec8c9da29b095455',1,'WiFiOutput::WiFiOutput()']]],
   ['wifioutput_2eh',['WiFiOutput.h',['../WiFiOutput_8h.html',1,'']]],

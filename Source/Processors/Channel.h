@@ -41,6 +41,12 @@ class GenericProcessor;
   
   Holds metadata about a given channel within a processor.
 
+  The Channel class provides a convenient way to store settings
+  for individual channels, and to pass that information between
+  processors. It's especially handy for the interactions with the
+  AudioNode and RecordNode, which need to access/update Channel
+  information for multiple processors at once.
+
   @see GenericProcessor, RecordNode, AudioNode
 
 */
@@ -50,20 +56,28 @@ class Channel
 {
 public:
 
-	// Default constructor:
+	/** Default constructor for creating Channels from scratch. */
 	Channel(GenericProcessor* p, int n);
 
-	// Copy constructor:
+	/** Copy constructor. */
 	Channel(const Channel& ch);
 
+	/** Returns the name of a given channel. */
 	String getName();
 
+	/** Restores the default settings for a given channel. */
 	void reset();
 
-	// channel number:
+	/** Sets the processor to which a channel belongs. */
+	void setProcessor(GenericProcessor*);
+
+	/** The channel number.*/
 	int num;
 
-	// event info:
+	/** The ID of the channel's processor.*/
+	int nodeId;
+
+	/** Used for EventChannels only.*/
 	int eventType;
 
 	// boolean values:
@@ -72,7 +86,7 @@ public:
 	bool isMonitored;
 	bool isEnabled;
 
-	// pointer to parent processor:
+	/** Pointer to the channel's parent processor. */
 	GenericProcessor* processor;
 
 	// crucial information:
@@ -87,8 +101,7 @@ public:
 
 private:
 
-	
-
+	/** Generates a default name, based on the channel number. */
 	void createDefaultName();
 
 };

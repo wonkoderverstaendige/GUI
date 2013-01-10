@@ -1,6 +1,7 @@
 var searchData=
 [
   ['canvas',['canvas',['../classVisualizerEditor.html#a31c5fc40fd3bb3f3777a600c75c57171',1,'VisualizerEditor']]],
+  ['channels',['channels',['../classGenericProcessor.html#a36c7766befce6d962fb316f690f718ef',1,'GenericProcessor']]],
   ['channelselector',['channelSelector',['../classGenericEditor.html#ab8a5e6c65cf62c23e9a9b2856c9b78f9',1,'GenericEditor']]],
   ['colorid',['colorId',['../classProcessorListItem.html#adb7ccd81ccfc66575555f2f5f0ccc460',1,'ProcessorListItem']]],
   ['commandmanager',['commandManager',['../classMainWindow.html#ae36bb0085b5650e00bca6bab107dc691',1,'MainWindow']]],

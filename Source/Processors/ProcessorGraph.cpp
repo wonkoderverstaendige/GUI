@@ -33,6 +33,7 @@
 #include "GenericProcessor.h"
 #include "RecordNode.h"
 #include "ResamplingNode.h"
+#include "ReferenceNode.h"
 #include "AudioResamplingNode.h"
 #include "SignalGenerator.h"
 #include "SourceNode.h"
@@ -42,6 +43,7 @@
 #include "WiFiOutput.h"
 #include "ArduinoOutput.h"
 #include "FPGAOutput.h"
+#include "Utilities/RecordControl.h"
 #include "Utilities/Splitter.h"
 #include "Utilities/Merger.h"
 #include "../UI/UIComponent.h"
@@ -428,6 +430,10 @@ GenericProcessor* ProcessorGraph::createProcessorFromDescription(String& descrip
 			std::cout << "Creating a new phase detector." << std::endl;
 			processor = new PhaseDetector();
 		}
+		else if (subProcessorType.equalsIgnoreCase("Digital Reference")) {
+			std::cout << "Creating a new digital reference." << std::endl;
+			processor = new ReferenceNode();
+		}
 
 		//sendActionMessage("New filter node created.");
 
@@ -447,7 +453,12 @@ GenericProcessor* ProcessorGraph::createProcessorFromDescription(String& descrip
 
 			//sendActionMessage("New merger created.");
 
-	 	}
+		} else if (subProcessorType.equalsIgnoreCase("Record Controller")) {
+
+			std::cout << "Creating a new record controller." << std::endl;
+			processor = new RecordControl();
+
+		}
 
 	} else if (processorType.equalsIgnoreCase("Sinks")) {
 

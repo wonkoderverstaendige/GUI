@@ -34,6 +34,14 @@
 
 class ImageIcon;
 
+/**
+  
+  User interface for the FPGAOutput sink.
+
+  @see FPGAOutput
+
+*/
+
 class FPGAOutputEditor : public GenericEditor
 
 {
@@ -42,6 +50,8 @@ public:
 	virtual ~FPGAOutputEditor();
 
 	void receivedEvent();
+
+   // void buttonEvent(Button* button);
 
 	ImageIcon* icon;
 

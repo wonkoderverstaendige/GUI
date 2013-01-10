@@ -156,11 +156,11 @@ var searchData=
   ['opengl_2eh',['OpenGL.h',['../OpenGL_8h.html',1,'']]],
   ['openglcanvas',['OpenGLCanvas',['../classOpenGLCanvas.html',1,'OpenGLCanvas'],['../classOpenGLCanvas.html#af73a98885d6ce913295e0f6ee63d85ec',1,'OpenGLCanvas::OpenGLCanvas()']]],
   ['openglcanvas_2eh',['OpenGLCanvas.h',['../OpenGLCanvas_8h.html',1,'']]],
-  ['openstate',['openState',['../classControlPanel.html#a79310ce5e86258dd74d4afcdb624a0ec',1,'ControlPanel']]],
+  ['openstate',['openState',['../classControlPanel.html#a754ef0fe8e045275fa1a0e8b269806c9',1,'ControlPanel']]],
   ['operator_3d',['operator=',['../classParameter.html#a1f27fe3b3fc432f646d0c5244f495b8d',1,'Parameter']]],
   ['operator_5b_5d',['operator[]',['../classParameter.html#a62dcb99c0702e094dab71655d5d7fed8',1,'Parameter']]],
   ['originalsource',['originalSource',['../structGenericProcessor_1_1ProcessorSettings.html#ab0ba3880def3c20e2ab2560ec7c6e5cb',1,'GenericProcessor::ProcessorSettings']]],
-  ['outputchannelnames',['outputChannelNames',['../structGenericProcessor_1_1ProcessorSettings.html#a280cd570b263d71dd222b9615a87a90a',1,'GenericProcessor::ProcessorSettings']]],
+  ['ostrich',['ostrich',['../classOpenGLCanvas.html#a5488a7a875628ad3413d66e89955d439a0068632602449278e64a13fe500e603d',1,'OpenGLCanvas']]],
   ['overflowbuffer',['overflowBuffer',['../classSpikeDetector.html#a789328f70cc6f1de8f0b862189ce23bd',1,'SpikeDetector']]],
   ['overlay',['overlay',['../classProjectionAxes.html#af7f323bed1ddf6b125cf45bf8852d4c8',1,'ProjectionAxes::overlay()'],['../classWaveAxes.html#a48c33abae62a2c2449c5ed19436f44ca',1,'WaveAxes::overlay()']]]
 ];

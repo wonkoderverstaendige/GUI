@@ -218,7 +218,8 @@ void GenericEditor::startAcquisition()
 
 	std::cout << "GenericEditor received message to start acquisition." << std::endl;
 
-	channelSelector->startAcquisition();
+	if (channelSelector != 0)
+		channelSelector->startAcquisition();
 
 	for (int n = 0; n < parameterEditors.size(); n++)
 	{
@@ -232,7 +233,8 @@ void GenericEditor::startAcquisition()
 
 void GenericEditor::stopAcquisition()
 {
-	channelSelector->stopAcquisition();
+	if (channelSelector != 0)
+		channelSelector->stopAcquisition();
 
 	for (int n = 0; n < parameterEditors.size(); n++)
 	{
@@ -364,11 +366,6 @@ void GenericEditor::sliderValueChanged(Slider* slider)
 {
 
 	sliderEvent(slider);
-}
-
-int GenericEditor::getStartChannel()
-{
-	return getProcessor()->getStartChannel();
 }
 
 void GenericEditor::update()

@@ -116,12 +116,12 @@ void SourceNode::actionListenerCallback(const String& msg)
     
     if (msg.equalsIgnoreCase("HI"))
     {
-        std::cout << "HI." << std::endl;
+       // std::cout << "HI." << std::endl;
        // dataThread->setOutputHigh();
         ttlState = 1;
     } else if (msg.equalsIgnoreCase("LO"))
     {
-        std::cout << "LO." << std::endl;
+       // std::cout << "LO." << std::endl;
        // dataThread->setOutputLow();
         ttlState = 0;
     }
@@ -309,7 +309,7 @@ void SourceNode::process(AudioSampleBuffer &buffer,
 	 			if (state == 0) {
 
                     //std::cout << "OFF" << std::endl;
-                    //std::cout << *eventCodeBuffer << std::endl;
+                    //std::cout << c << std::endl;
 	 				// signal channel state is OFF
 	 				addEvent(events, // MidiBuffer
 	 						 TTL,    // eventType
@@ -319,8 +319,8 @@ void SourceNode::process(AudioSampleBuffer &buffer,
 	 						 );
 	 			} else {
 
-                    //std::cout << "ON" << std::endl;
-                    //std::cout << *eventCodeBuffer << std::endl;
+                   // std::cout << "ON" << std::endl;
+                   // std::cout << c << std::endl;
                     
 	 				// signal channel state is ON
 	 				addEvent(events, // MidiBuffer
@@ -329,6 +329,8 @@ void SourceNode::process(AudioSampleBuffer &buffer,
 	 						 1,		 // eventID
 	 						 c		 // eventChannel
 	 						 );
+	 			
+
 	 			}
 
 	 			eventChannelState[c] = state;

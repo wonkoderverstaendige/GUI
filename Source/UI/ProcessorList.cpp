@@ -56,6 +56,7 @@ ProcessorList::ProcessorList() : isDragging(false),
 	filters->addSubItem(new ProcessorListItem("Spike Detector"));
 	filters->addSubItem(new ProcessorListItem("Resampler"));
 	filters->addSubItem(new ProcessorListItem("Phase Detector"));
+	filters->addSubItem(new ProcessorListItem("Digital Reference"));
 
 	ProcessorListItem* sinks = new ProcessorListItem("Sinks");
 	sinks->addSubItem(new ProcessorListItem("LFP Viewer"));
@@ -67,6 +68,7 @@ ProcessorList::ProcessorList() : isDragging(false),
 	ProcessorListItem* utilities = new ProcessorListItem("Utilities");
 	utilities->addSubItem(new ProcessorListItem("Splitter"));
 	utilities->addSubItem(new ProcessorListItem("Merger"));
+	utilities->addSubItem(new ProcessorListItem("Record Controller"));
 
 	baseItem = new ProcessorListItem("Processors");
 	baseItem->addSubItem(sources);
@@ -582,24 +584,17 @@ void ProcessorListItem::setParentName(const String& name)
 	if (parentName.equalsIgnoreCase("Processors"))
 	{
 		colorId = PROCESSOR_COLOR;
-		//color = Colour(59, 59, 59);
-
 	} else if (parentName.equalsIgnoreCase("Filters"))
 	{
 		colorId = FILTER_COLOR;
-		//color = Colour(255, 89, 0);
 	} else if (parentName.equalsIgnoreCase("Sinks"))
 	{
 		colorId = SINK_COLOR;
-		//color = Colour(255, 149, 0);
 	} else if (parentName.equalsIgnoreCase("Sources"))
 	{
 		colorId = SOURCE_COLOR;
-		//color = Colour(255, 0, 0);
-
 	} else {
 		colorId = UTILITY_COLOR;
-		//color = Colour(90, 80, 80);
 	}
 }
 
