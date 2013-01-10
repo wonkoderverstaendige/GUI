@@ -64,8 +64,8 @@ public:
 	~NetworkThread();
 
 	bool foundInputSource()
-	bool startAcquisition() {return true;}
-	bool stopAcquisition() {return true;}
+	bool startAcquisition() //{return true;}
+	bool stopAcquisition() //{return true;}
 	int getNumChannels()
 	int getNumEventChannels()
 	float getBitVolts()
