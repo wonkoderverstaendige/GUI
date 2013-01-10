@@ -41,6 +41,8 @@ SourceNode::SourceNode(const String& name_)
 		dataThread = new FPGAThread(this);//FPGAThread(this);
 	} else if (getName().equalsIgnoreCase("File Reader")) {
 		dataThread = new FileReaderThread(this);
+	} else if (getName().equalsIgnoreCase("UDP Stream Reader")){
+		dataThread = new NetworkThread(this);
 	}
 	
 	// if the data type was recognized and a thread created above
@@ -92,7 +94,6 @@ void SourceNode::updateSettings()
 	// get the buffer address (to the data stream?)
 	if (inputBuffer == 0 && dataThread != 0)
 	{
-
 		inputBuffer = dataThread->getBufferAddress();
 		std::cout << "Input buffer address is " << inputBuffer << std::endl;
 	}

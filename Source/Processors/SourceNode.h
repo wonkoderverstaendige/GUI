@@ -34,6 +34,7 @@
 #include "DataThreads/IntanThread.h"
 #include "DataThreads/FPGAThread.h"
 #include "DataThreads/FileReaderThread.h"
+#include "DataThreads/NetworkThread.h"
 #include "GenericProcessor.h"
 #include "../UI/UIComponent.h"
 
@@ -41,7 +42,7 @@
 
   Creates and controls a thread for reading data from external sources.
 
-  @see GenericProcessor, SourceNodeEditor, DataThread, IntanThread
+  @see GenericProcessor, SourceNodeEditor, DataThread, IntanThread, NetworkThread
 
 */
 

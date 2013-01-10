@@ -49,6 +49,7 @@ ProcessorList::ProcessorList() : isDragging(false),
 	sources->addSubItem(new ProcessorListItem("Custom FPGA"));
 	sources->addSubItem(new ProcessorListItem("File Reader"));
 	sources->addSubItem(new ProcessorListItem("Event Generator"));
+	sources->addSubItem(new ProcessorListItem("UDP Stream Reader"));
 
 	ProcessorListItem* filters = new ProcessorListItem("Filters");
 	filters->addSubItem(new ProcessorListItem("Bandpass Filter"));
