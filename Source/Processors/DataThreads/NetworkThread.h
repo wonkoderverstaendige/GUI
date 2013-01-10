@@ -78,6 +78,9 @@ private:
 	// NetComDat my_netcomdat;
 
 	// lfp_bank_net_t lfp;
+	
+	struct sockaddr_in dataddr;
+	int sockfd;
 
 	DataBuffer* dataBuffer;
 
