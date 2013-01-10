@@ -35,6 +35,7 @@
 #include "../../../JuceLibraryCode/JuceHeader.h"
 #include <sys/socket.h> //for linux
 #include <netinet/in.h> //for linux
+#include <arpa/inet.h> //for linux
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
@@ -65,13 +66,13 @@ public:
 	NetworkThread(SourceNode* sn);
 	~NetworkThread();
 
-	bool foundInputSource()
-	bool startAcquisition() //{return true;}
-	bool stopAcquisition() //{return true;}
-	int getNumChannels()
-	int getNumEventChannels()
-	float getBitVolts()
-	float getSampleRate()
+	bool foundInputSource();
+	bool startAcquisition(); //{return true;}
+	bool stopAcquisition(); //{return true;}
+	int getNumChannels();
+	int getNumEventChannels();
+	float getBitVolts();
+	float getSampleRate();
 
 private:
 
@@ -85,6 +86,7 @@ private:
 	float thisSample[8];
 
 	bool updateBuffer();
+	bool deviceFound;
 
 	JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (NetworkThread);
 
