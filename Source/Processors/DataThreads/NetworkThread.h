@@ -84,7 +84,7 @@ private:
 	struct sockaddr_in dataddr;
 	int sockfd;
 
-	DataBuffer* dataBuffer;
+	//DataBuffer* dataBuffer;
 
 	float thisSample[8];
 

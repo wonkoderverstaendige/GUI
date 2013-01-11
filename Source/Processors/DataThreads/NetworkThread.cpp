@@ -22,21 +22,30 @@
 */
 
 #include "NetworkThread.h"
+#include <errno.h>
 
 NetworkThread::NetworkThread(SourceNode* sn) : DataThread(sn)
  {
-
+	
 	memset(&dataddr, 0, sizeof(dataddr));
 	//still using IPv4, change this if you want to switch!
 	dataddr.sin_family = AF_INET;
 	dataddr.sin_addr.s_addr=inet_addr("127.0.0.1");
-	dataddr.sin_port=htons(61557);	
+	dataddr.sin_port=htons(61557);
+
+	sockfd = socket(AF_INET,SOCK_DGRAM,0);
+	std::cout << "Socket ID: " << sockfd << std::endl;
+	
+	int bindfd;	
+	bindfd = bind(sockfd, (struct sockaddr *) &dataddr, sizeof(dataddr));
+	std::cout << "Bind ID: " << bindfd << std::endl;
+	
 	
 	// I'm just going to start by pulling the first 8 channels and discarding the rest.
 	// Does the size depend on the number of channels somehow?
  	dataBuffer = new DataBuffer(8, 4096);
  	
- 	deviceFound = false; //initialization
+ 	deviceFound = true; //initialization
 
  	startThread();
 
@@ -48,8 +57,8 @@ NetworkThread::~NetworkThread() {
 
 	std::cout << "Network interface destroyed." << std::endl;
 
-	delete dataBuffer;
-	dataBuffer = 0;
+	//delete dataBuffer;
+	//dataBuffer = 0;
 }
 
 int NetworkThread::getNumChannels()
@@ -79,21 +88,26 @@ bool NetworkThread::foundInputSource()
 
 bool NetworkThread::startAcquisition()
 {
-	sockfd = socket(AF_INET,SOCK_DGRAM,0);
-	if (sockfd < 0)
-	{
-		deviceFound = false;
-		return false;
-	}
 	
-	int bindfd;	
-	bindfd = bind(sockfd, (struct sockaddr *) &dataddr, sizeof(dataddr));
+	if (sockfd == 0)
+	{	
+		sockfd = socket(AF_INET,SOCK_DGRAM,0);
+		if (sockfd < 0)
+		{
+			deviceFound = false;
+			return false;
+		}
+	
+		int bindfd;	
+		bindfd = bind(sockfd, (struct sockaddr *) &dataddr, sizeof(dataddr));
 
-	if (bindfd < 0)
-	{
-		deviceFound = false;
-		return false;
+		if (bindfd < 0)
+		{
+			deviceFound = false;
+			return false;
+		}
 	}
+	startThread();
 	
 	deviceFound = true;
 	return true;
@@ -102,6 +116,12 @@ bool NetworkThread::startAcquisition()
 bool NetworkThread::stopAcquisition()
 {
 	close(sockfd);
+	sockfd = 0;
+
+	if (isThreadRunning()) {
+        	signalThreadShouldExit();
+    	}
+
 	deviceFound = false;
 	return true;
 }
@@ -112,14 +132,15 @@ bool NetworkThread::updateBuffer()
 	char newData[80];
 	int receiveData;
 
-	int addrlen;
+	socklen_t addrlen;
 
 	addrlen = sizeof(dataddr);
 
-	receiveData = recvfrom(sockfd, &newData, 80, 0, (struct sockaddr *) & dataddr, (socklen_t*) sizeof(dataddr));
+	receiveData = recvfrom(sockfd, &newData, 80, 0, (struct sockaddr *) & dataddr, &addrlen);
 
 	if (receiveData < 0)
 	{
+		std::cout << errno << std::endl;
 		return false;
 	}
 	
