@@ -53,7 +53,16 @@ NetworkThread::NetworkThread(SourceNode* sn) : DataThread(sn)
 }
 
 NetworkThread::~NetworkThread() {
-	stopThread(500);
+
+
+	//if (sockfd != 0){
+		close(sockfd);
+	//}
+	if (isThreadRunning()) {
+        	signalThreadShouldExit();
+    	}
+
+	//stopThread(500);
 
 	std::cout << "Network interface destroyed." << std::endl;
 
@@ -94,15 +103,21 @@ bool NetworkThread::startAcquisition()
 		sockfd = socket(AF_INET,SOCK_DGRAM,0);
 		if (sockfd < 0)
 		{
+			std::cout << sockfd << std::endl;
 			deviceFound = false;
 			return false;
 		}
+		
+		int yes = 1;
+		socklen_t addrlen = sizeof(dataddr);
+		setsockopt(sockfd, SOL_SOCKET, SO_REUSEADDR, &yes, sizeof(yes));
 	
 		int bindfd;	
 		bindfd = bind(sockfd, (struct sockaddr *) &dataddr, sizeof(dataddr));
 
 		if (bindfd < 0)
 		{
+			std::cout << bindfd << std::endl;
 			deviceFound = false;
 			return false;
 		}
@@ -115,14 +130,17 @@ bool NetworkThread::startAcquisition()
 
 bool NetworkThread::stopAcquisition()
 {
-	close(sockfd);
-	sockfd = 0;
+	//int closefd;
+		
+	//closefd = close(sockfd);
+	//std::cout << "closed socket :" << closefd << std::endl;
+	//sockfd = 0;
 
 	if (isThreadRunning()) {
         	signalThreadShouldExit();
     	}
 
-	deviceFound = false;
+	//deviceFound = false;
 	return true;
 }
 
