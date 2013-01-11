@@ -85,6 +85,16 @@ bool NetworkThread::startAcquisition()
 		deviceFound = false;
 		return false;
 	}
+	
+	int bindfd;	
+	bindfd = bind(sockfd, (struct sockaddr *) &dataddr, sizeof(dataddr));
+
+	if (bindfd < 0)
+	{
+		deviceFound = false;
+		return false;
+	}
+	
 	deviceFound = true;
 	return true;
 }
@@ -101,7 +111,11 @@ bool NetworkThread::updateBuffer()
 {
 	char * newData;
 	int receiveData;
-	receiveData = recvfrom(sockfd, newData, 80, 0, (struct sockaddr *) & dataddr, (socklen_t*) sizeof(dataddr));
+	int addrlen;
+
+	addrlen = sizeof(dataddr);
+
+	receiveData = recvfrom(sockfd, newData, 80, 0, (struct sockaddr *) & dataddr, (socklen_t *) &addrlen);
 	if (receiveData < 0)
 	{
 		return false;
