@@ -99,9 +99,9 @@ bool NetworkThread::stopAcquisition()
 
 bool NetworkThread::updateBuffer()
 {
-	char * newData;
+	char newData[80];
 	int receiveData;
-	receiveData = recvfrom(sockfd, newData, 80, 0, (struct sockaddr *) & dataddr, (socklen_t*) sizeof(dataddr));
+	receiveData = recvfrom(sockfd, &newData, 80, 0, (struct sockaddr *) & dataddr, (socklen_t*) sizeof(dataddr));
 	if (receiveData < 0)
 	{
 		return false;
