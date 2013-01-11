@@ -35,9 +35,18 @@ NetworkThread::NetworkThread(SourceNode* sn) : DataThread(sn)
 
 	sockfd = socket(AF_INET,SOCK_DGRAM,0);
 	std::cout << "Socket ID: " << sockfd << std::endl;
+
+	struct timeval tv;
+	tv.tv_sec = 0;  /* 30 Secs Timeout */
+	tv.tv_usec = 250;  // Not init'ing this can cause strange errors
+	setsockopt(sockfd, SOL_SOCKET, SO_RCVTIMEO, (char *)&tv,sizeof(struct timeval));
+	int yes = 1;
+	socklen_t addrlen = sizeof(dataddr);
+	setsockopt(sockfd, SOL_SOCKET, SO_REUSEADDR, &yes, sizeof(yes));
 	
 	int bindfd;	
 	bindfd = bind(sockfd, (struct sockaddr *) &dataddr, sizeof(dataddr));
+
 	std::cout << "Bind ID: " << bindfd << std::endl;
 	
 	
@@ -58,11 +67,12 @@ NetworkThread::~NetworkThread() {
 	//if (sockfd != 0){
 		close(sockfd);
 	//}
+
 	if (isThreadRunning()) {
         	signalThreadShouldExit();
     	}
 
-	//stopThread(500);
+	stopThread(500);
 
 	std::cout << "Network interface destroyed." << std::endl;
 
@@ -108,6 +118,10 @@ bool NetworkThread::startAcquisition()
 			return false;
 		}
 		
+		struct timeval tv;
+		tv.tv_sec = 0;  /* 30 Secs Timeout */
+		tv.tv_usec = 50;  // Not init'ing this can cause strange errors
+		setsockopt(sockfd, SOL_SOCKET, SO_RCVTIMEO, (char *)&tv,sizeof(struct timeval));
 		int yes = 1;
 		socklen_t addrlen = sizeof(dataddr);
 		setsockopt(sockfd, SOL_SOCKET, SO_REUSEADDR, &yes, sizeof(yes));
@@ -154,22 +168,26 @@ bool NetworkThread::updateBuffer()
 
 	addrlen = sizeof(dataddr);
 
-	receiveData = recvfrom(sockfd, &newData, 80, 0, (struct sockaddr *) & dataddr, &addrlen);
+	if (!threadShouldExit()){
+		receiveData = recvfrom(sockfd, &newData, 80, 0, (struct sockaddr *) & dataddr, &addrlen);
+	}
 
-	if (receiveData < 0)
+	/*if (receiveData < 0)
 	{
 		std::cout << errno << std::endl;
 		return false;
-	}
+	}*/
 	
-	if (newData[4] == 0)
+	if (newData[3] == 0)
 	{
 		for (int i = 0; i++; i<8)
 		{
 			thisSample[i] = float(newData[i + 17])*15/pow(2.0,16);
 		}
 		
-		timestamp = uint64(newData[12]);
+		uint32 tmp = ((uint32_t)(newData[12]) << 24) | ((uint32_t)(newData[13]) << 16) | (newData[14] << 8) | (newData[15]); 
+		
+		timestamp = uint64(tmp); //some conversion might have to happen here to get an accurate sampling rate
 		eventCode = 0;
 		
 		dataBuffer->addToBuffer(thisSample, &timestamp, &eventCode, 1);
