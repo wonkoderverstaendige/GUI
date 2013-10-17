@@ -57,6 +57,8 @@ ProcessorList::ProcessorList()
     sources->addSubItem(new ProcessorListItem("Rhythm FPGA"));
     sources->addSubItem(new ProcessorListItem("File Reader"));
     //sources->addSubItem(new ProcessorListItem("Event Generator"));
+	sources->addSubItem(new ProcessorListItem("File Reader"));
+	sources->addSubItem(new ProcessorListItem("Tutorial Processor"));
 
     ProcessorListItem* filters = new ProcessorListItem("Filters");
     filters->addSubItem(new ProcessorListItem("Bandpass Filter"));

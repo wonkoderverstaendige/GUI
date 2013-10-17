@@ -52,6 +52,7 @@
 #include "Utilities/Merger.h"
 #include "../UI/UIComponent.h"
 #include "../UI/EditorViewport.h"
+#include "TutorialProcessor.h"
 
 ProcessorGraph::ProcessorGraph() : currentNodeId(100)
 {
@@ -464,7 +465,11 @@ GenericProcessor* ProcessorGraph::createProcessorFromDescription(String& descrip
             processor = new FileReader();
             std::cout << "Creating a new file reader." << std::endl;
         }
-
+        else if (subProcessorType.equalsIgnoreCase("Tutorial Processor"))
+        {
+            processor = new TutorialProcessor();
+            std::cout << "Creating a new tutorial processor." << std::endl;
+        }
 
         sendActionMessage("New source node created.");
 

@@ -224,6 +224,10 @@
               file="Source/Audio/AudioComponent.h"/>
       </GROUP>
       <GROUP id="yQmqZWk" name="Processors">
+        <FILE id="LO4kiK" name="TutorialProcessor.cpp" compile="1" resource="0"
+              file="Source/Processors/TutorialProcessor.cpp"/>
+        <FILE id="ChRmFb" name="TutorialProcessor.h" compile="0" resource="0"
+              file="Source/Processors/TutorialProcessor.h"/>
         <FILE id="E7s1De" name="LfpTriggeredAverageNode.cpp" compile="1" resource="0"
               file="Source/Processors/LfpTriggeredAverageNode.cpp"/>
         <FILE id="MKL66o" name="LfpTriggeredAverageNode.h" compile="0" resource="0"
