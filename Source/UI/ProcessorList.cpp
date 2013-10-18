@@ -50,16 +50,29 @@ ProcessorList::ProcessorList()
     setColour(SOURCE_COLOR, Colour(241, 90, 41));
     setColour(UTILITY_COLOR, Colour(147, 149, 152));
 
+	// SOURCES
     ProcessorListItem* sources = new ProcessorListItem("Sources");
+	StringArray listSources = StringArray();
+	listSources.add("RHA2000-EVAL");
+	listSources.add("Signal Generator");
+	listSources.add("Custom FPGA");
+	listSources.add("Rhythm FPGA");
+	listSources.add("File Reader");
+	listSources.add("Event Generator");
+	listSources.add("Tutorial Processor");
+	for (int n=0; n<listSources.size(); n++) 
+	{
+		sources->addSubItem(new ProcessorListItem(listSources[n]));
+	}
+
     //sources->addSubItem(new ProcessorListItem("RHA2000-EVAL"));
     //sources->addSubItem(new ProcessorListItem("Signal Generator"));
     //sources->addSubItem(new ProcessorListItem("Custom FPGA"));
-    sources->addSubItem(new ProcessorListItem("Rhythm FPGA"));
-    sources->addSubItem(new ProcessorListItem("File Reader"));
+    //sources->addSubItem(new ProcessorListItem("Rhythm FPGA"));
+    //sources->addSubItem(new ProcessorListItem("File Reader"));
     //sources->addSubItem(new ProcessorListItem("Event Generator"));
-	sources->addSubItem(new ProcessorListItem("File Reader"));
-	sources->addSubItem(new ProcessorListItem("Tutorial Processor"));
 
+	// FILTERS
     ProcessorListItem* filters = new ProcessorListItem("Filters");
     filters->addSubItem(new ProcessorListItem("Bandpass Filter"));
     //filters->addSubItem(new ProcessorListItem("Event Detector"));
@@ -69,6 +82,7 @@ ProcessorList::ProcessorList()
     //filters->addSubItem(new ProcessorListItem("Digital Ref"));
     filters->addSubItem(new ProcessorListItem("Channel Map"));
 
+	// SINKS
     ProcessorListItem* sinks = new ProcessorListItem("Sinks");
     sinks->addSubItem(new ProcessorListItem("LFP Viewer"));
     //sinks->addSubItem(new ProcessorListItem("LFP Trig. Avg."));
@@ -78,6 +92,7 @@ ProcessorList::ProcessorList()
     // sinks->addSubItem(new ProcessorListItem("FPGA Output"));
     sinks->addSubItem(new ProcessorListItem("Pulse Pal"));
 
+	// UTILITIES
     ProcessorListItem* utilities = new ProcessorListItem("Utilities");
     utilities->addSubItem(new ProcessorListItem("Splitter"));
     utilities->addSubItem(new ProcessorListItem("Merger"));
